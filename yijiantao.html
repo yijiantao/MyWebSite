@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>易剑韬的个人网站</title>
+<link rel="stylesheet" media="all" href="css/lanrenzhijia.css" />
+<script src="js/modernizr.custom.37797.js"></script> 
+		<!-- Grab Google CDN's jQuery. fall back to local if necessary --> 
+		<script src="http://www.lanrenzhijia.com/ajaxjs/1.6.1/jquery-1.6.1.min.js"></script> 
+		<script>!window.jQuery && document.write('<script src="/js/jquery-1.6.1.min.js"><\/script>')</script>
+		<script src="js/parallax.js"></script>
+
+	<style type="text/css">
+		body{
+			text-align: center;
+			background: #F7FAFC;
+			overflow: hidden;
+			background: #fff;
+			}
+	</style>
+</head>
+<body>
+<div id="wrapper">
+			
+			<header id="branding">
+				<h1>Welcome to my personal website</h1>
+			</header>
+			
+			<nav id="primary">
+				<ul>
+					<li>
+						<h1>Hey, I'm Eugene Yee
+							Nice to Meet You</h1>
+						<a class="manned-flight" href="#manned-flight">View</a>
+					</li>
+					<li>
+						<h1>About Me:</h1>
+						<a class="frameless-parachute" href="#frameless-parachute">View</a>
+					</li>
+					<li>
+						<h1>Labs</h1>
+						<a class="english-channel" href="#english-channel">View</a>
+					</li>
+					<li>
+						<h1>Resume</h1>
+						<a class="about" href="#about">View</a>
+					</li>
+				</ul>
+			</nav>
+			
+			<div id="content">
+				<article id="manned-flight">
+					<header>
+						<h1>Hey (^_^)<Br/>I'm Eugene Yee <Br/>
+							Nice to meet u</h1>
+					</header>
+				<div align="center">		
+					<table border="0" cellpadding="0" cellspacing="0" >
+					 <tr>
+					   <td width="30"> <a href="http://yijiantao.net"><img id="blog" src="img/blog.jpg"  style="width:28px;height:28px;"/></a> </td>
+					   <td width="30"> <a href="http://yijiantao.net">Blog</a> </td>
+					   <td width="30" align="center"> | </td>
+					   <td width="30"> <a href="http://github.com/yijiantao"><img id="github" src="img/github.png"  style="width:28px;height:28px;"/></a></td>
+					   <td width="30"> <a href="http://github.com/yijiantao">github</a></td>
+					 </tr>
+					 </table>
+				</div>	 
+			
+					
+					<nav class="next-prev">
+						<hr />
+						<a class="next frameless-parachute" href="#frameless-parachute">Next</a>
+					</nav>
+				</article>
+				
+				<article id="frameless-parachute">
+					<header>
+						<h1>About Me:</h1>
+					</header>
+					<p>95年生人，摩羯座<Br/>
+						勤思，笃行<Br/>
+						喜欢一切精致、极简与美的事物<Br/>
+						愿与有肝胆人共事<Br/>于无字句处读书<Br/>
+					</p>
+						
+					<nav class="next-prev">
+						<a class="prev manned-flight" href="#manned-flight">Prev</a>
+						<hr />
+						<a class="next english-channel" href="#english-channel">Next</a>
+					</nav>
+				</article>
+				
+				<article id="english-channel">
+					<header>
+						<h1>My Labs</h1>
+					</header>
+					<p>AAAAAAAA.</p>
+					<nav class="next-prev">
+						<a class="prev frameless-parachute" href="#frameless-parachute">Prev</a>
+						<hr />
+						<a class="next about" href="#about">Next</a>
+					</nav>
+				</article>
+				
+				<article id="about">
+					<header>
+						<h1>Resume</h1>
+					</header>
+					<p>待写。。。</p>
+					<nav class="next-prev">
+						<a class="prev english-channel" href="#english-channel">Prev</a>
+						<hr />
+					</nav>
+				</article>
+			</div>
+	
+		<canvas id="Mycanvas"  z-Index="-1" width=4000 height=30000></canvas>
+	</div>
+	
+	<script>
+
+		var WIDTH = window.innerWidth, HEIGHT = window.innerHeight*7, POINT = 280;
+		
+		var canvas = document.getElementById('Mycanvas');
+		canvas.width = WIDTH,
+		canvas.height = HEIGHT;
+		var context = canvas.getContext('2d');
+		context.strokeStyle = 'rgba(0,0,0,0.05)',
+		context.strokeWidth = 1,
+		context.fillStyle = 'rgba(0,0,0,0.10)';
+		var circleArr = [];
+
+		function Line (x, y, _x, _y, o) {
+			this.beginX = x,
+			this.beginY = y,
+			this.closeX = _x,
+			this.closeY = _y,
+			this.o = o;
+		}
+
+		function Circle (x, y, r, moveX, moveY) {
+			this.x = x,
+			this.y = y,
+			this.r = r,
+			this.moveX = moveX,
+			this.moveY = moveY;
+		}
+
+		function num (max, _min) {
+			var min = arguments[1] || 0;
+			return Math.floor(Math.random()*(max-min+1)+min);
+		}
+
+		function drawCricle (cxt, x, y, r, moveX, moveY) {
+			var circle = new Circle(x, y, r, moveX, moveY)
+			cxt.beginPath()
+			cxt.arc(circle.x, circle.y, circle.r, 0, 2*Math.PI)
+			cxt.closePath()
+			cxt.fill();
+			return circle;
+		}
+
+		function drawLine (cxt, x, y, _x, _y, o) {
+			var line = new Line(x, y, _x, _y, o)
+			cxt.beginPath()
+			cxt.strokeStyle = 'rgba(0,0,0,'+ o +')'
+			cxt.moveTo(line.beginX, line.beginY)
+			cxt.lineTo(line.closeX, line.closeY)
+			cxt.closePath()
+			cxt.stroke();
+
+		}
+
+		function init () {
+			circleArr = [];
+			for (var i = 0; i < POINT; i++) {
+				circleArr.push(drawCricle(context, num(WIDTH), num(HEIGHT), num(15, 2), num(10, -10)/40, num(10, -10)/40));
+			}
+			draw();
+		}
+
+		function draw () {
+			context.clearRect(0,0,canvas.width, canvas.height);
+			for (var i = 0; i < POINT; i++) {
+				drawCricle(context, circleArr[i].x, circleArr[i].y, circleArr[i].r);
+			}
+			for (var i = 0; i < POINT; i++) {
+				for (var j = 0; j < POINT; j++) {
+					if (i + j < POINT) {
+						var A = Math.abs(circleArr[i+j].x - circleArr[i].x),
+							B = Math.abs(circleArr[i+j].y - circleArr[i].y);
+						var lineLength = Math.sqrt(A*A + B*B);
+						var C = 1/lineLength*7-0.009;
+						var lineOpacity = C > 0.03 ? 0.03 : C;
+						if (lineOpacity > 0) {
+							drawLine(context, circleArr[i].x, circleArr[i].y, circleArr[i+j].x, circleArr[i+j].y, lineOpacity);
+						}
+					}
+				}
+			}
+		}
+
+		window.onload = function () {
+			init();
+			setInterval(function () {
+				for (var i = 0; i < POINT; i++) {
+					var cir = circleArr[i];
+					cir.x += cir.moveX;
+					cir.y += cir.moveY;
+					if (cir.x > WIDTH) cir.x = 0;
+					else if (cir.x < 0) cir.x = WIDTH;
+					if (cir.y > HEIGHT) cir.y = 0;
+					else if (cir.y < 0) cir.y = HEIGHT;
+					
+				}
+				draw();
+			}, 16);
+		}
+
+	</script>
+	
+	
+</body>
+</html>
